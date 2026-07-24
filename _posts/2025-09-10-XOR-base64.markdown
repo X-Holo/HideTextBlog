@@ -37,4 +37,6 @@ Example:
 
 Decoding the Base64 and then XORing with the key restores the original text.
 
-Summary: XOR obscures content; Base64 makes the result safe for URLs. Together they produce many different links that reveal the same original text when the correct key is provided.
+### Summary
+
+XOR obscures content; Base64 makes the result safe for URLs. Together they produce many different links that reveal the same original text when the correct key is provided.

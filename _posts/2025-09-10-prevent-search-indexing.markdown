@@ -6,29 +6,20 @@ categories: seo privacy
 ---
 
 ## Preventing Search Engine Indexing
+URLs can carry sensitive data. HideText uses two simple, practical measures so those links don't become searchable.
 
-In the world of online information sharing, the URL itself often becomes the data carrier. To ensure that these "data-heavy" links leave zero searchable traces, HideText implements a dual-layer protection strategy designed to intercept search engine crawlers before they can index your private information.
+1) HTTP-level noindex
 
-### 1. The Power of `X-Robots-Tag` (HTTP Layer)
+- When a URL contains a ciphertext parameter (`?c=`), the server adds `X-Robots-Tag: noindex, nofollow` to the response header.  
+- This tells crawlers not to index the URL before they parse the page, which is more reliable for parameterized links than an HTML meta tag.
 
-Unlike traditional methods that rely on HTML `<meta>` tags, HideText exercises control at the **HTTP Response Header** level. 
+2) Canonical pointing
 
-- **How it works**: When our server detects a ciphertext parameter (`?c=`) in the URL, it injects an `X-Robots-Tag: noindex, nofollow` into the header.
-- **Why it’s superior**: This instruction is received by the crawler *before* the page content is even parsed. It provides a definitive "Do Not Enter" sign that is more robust for parameterized URLs, ensuring that even if a link is shared on a public forum, it won't appear in Google's search snippets.
+- Each ciphertext page includes a `<link rel="canonical" href="https://hide-text.com/">`.  
+- Crawlers are instructed to treat the encrypted URL as part of the main site, preventing separate indexing or ranking for each random link.
 
-### 2. Canonicalization: Consolidating Authority
+Verification
 
-Parameterized URLs can often lead to "Duplicate Content" issues, where a search engine thinks every unique encrypted link is a new page.
+- We verify this behavior empirically — a page can be indexed while its HideText links remain unsearchable. See the test details: {% post_url 2025-09-10-verification-test %}.
 
-- **The Strategy**: Every generated ciphertext page includes a `<link rel="canonical" ...>` tag pointing strictly back to the root domain (`https://hide-text.com/`).
-- **The Result**: This tells crawlers: "Ignore the unique encryption parameters; treat this as part of the homepage." By consolidating all ranking authority to the main tool, we effectively render individual private links "invisible" as independent entities.
-
-### 3. Verification: Seeing the "Invisibility"
-
-Technology is only as good as its measurable results. We don't just claim these links are hidden; we've proven it via empirical testing. 
-
-We recommend reading our [Verification and Testing Method]({% post_url 2025-09-10-verification-test %}), where we demonstrate how a page can be indexed while its HideText links remain totally unsearchable.
-
----
-
-*To learn more about how we scramble the underlying data before it even hits these SEO layers, see our post on [XOR Encryption and Base64]({% post_url 2025-09-10-XOR-base64 %}).*
+For a simple explanation of how the data is transformed before these layers, see: {% post_url 2025-09-10-XOR-base64 %}.
