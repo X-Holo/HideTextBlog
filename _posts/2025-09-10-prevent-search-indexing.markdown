@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Invisible Links: Using noindex and Canonical Tags to Shield Privacy"
+title:  "Preventing Search Engine Indexing"
 date:   2026-07-20 23:40:00 +0800
 categories: seo privacy
 ---
