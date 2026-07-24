@@ -1,47 +1,40 @@
 ---
 layout: post
-title:  "The Math Behind HideText: XOR Encryption and URL-safe Base64"
+title:  "How HideText Works: XOR + Base64"
 date:   2026-07-20 23:45:00 +0800
 categories: security engineering
 ---
 
 ## Technical Implementation
 
-In HideText, we prioritize simplicity and transparency. The core mechanism relies on a classic cryptographic primitive: the bitwise XOR operation, paired with URL-safe encoding for data transport.
+How HideText Works: XOR + Base64
 
-### 1. XOR: The Symmetric logic
+HideText uses two simple steps to turn readable text into URL-safe, random-looking links.
 
-The foundation is the **Exclusive OR (XOR)** operation. In binary terms, XOR yields `1` only if the inputs are different. Its most critical property for us is being a **self-inverse** or **involution**:
+### XOR — reversible transformation
 
-$$ (A \oplus B) \oplus B = A $$
+XOR (exclusive OR) has a useful property: (A XOR B) XOR B = A.
 
-- **Encryption**: We take the UTF-8 byte stream of your plaintext and apply the XOR operator against a random key. 
-- **Cycle-Key Logic**: Since your text is often longer than the 8-character key, we use a modulo operation `(i % key.length)` to cycle the key across the entire payload.
+Example:
 
-This transforms human-readable strings into a raw byte sequence that carries no semantic meaning without the specific key.
+- Plaintext: HELLO
+- Key: 12345
+- HELLO XOR 12345 → u8#kP // get ciphertext
+- u8#kP XOR 12345 → HELLO // restore plaintext
 
-### 2. URL-safe Base64 Encoding
+XOR makes text look random but can be recovered with the same key.
 
-Standard Base64 encoding is not inherently safe for URLs because it uses `+`, `/`, and `=`.
-- `+` is often interpreted as a space.
-- `/` is a path delimiter.
+### Base64 — make data URL-friendly
 
-To ensure the ciphertext can be shared safely as a URL parameter (`?c=...`), we apply **URL-safe Base64** (RFC 4648), which replaces `+` with `-` and `/` with `_`. We also strip or handle the padding to keep the URL as clean as possible.
+The XOR result is arbitrary bytes and may include characters that break URLs (for example `a+b/c=d`).
+Base64 (or URL-safe Base64) converts those bytes into URL-safe characters.
 
-### 3. Client-Side Execution
+Example:
 
-A crucial technical detail: both `encode.ts` and `deXorStr` functions are executed entirely in the **user's memory (Browser context)**. 
-- The [Privacy Policy]({% post_url 2025-09-10-privacy %}) provides more details on why this "Zero-Server" architecture is secure.
-- To see this algorithm in action against real-world search crawlers, check out our [Verification and Testing Method]({% post_url 2025-09-10-verification-test %}).
+- Raw: a+b/c=d
+- URL-safe Base64: YS1iL2MrZA
+- Link: https://hide-text.com/?c=YS1iL2MrZA
 
----
+Decoding the Base64 and then XORing with the key restores the original text.
 
-### Implementation Snippet (Conceptual)
-
-```typescript
-// Simplified XOR logic
-for (let i = 0; i < encoded.length; i++) {
-  const charCode = encoded.charCodeAt(i) ^ key.charCodeAt(i % key.length);
-  // ... convert to hex and then URL-safe base64
-}
-```
+Summary: XOR obscures content; Base64 makes the result safe for URLs. Together they produce many different links that reveal the same original text when the correct key is provided.
