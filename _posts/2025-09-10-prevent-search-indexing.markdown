@@ -23,5 +23,5 @@ URLs can carry sensitive data. HideText uses two simple, practical measures so t
 
 - **Random links are not indexed:** URLs containing ciphertext parameters (for example `?c=...`) are prevented from being indexed and should not appear in search results.
 - **The domain is indexed:** The root site (`https://hide-text.com/`) remains indexable and will be treated normally by search engines.
-- **Practical effect:** You can create many random-looking links that reveal the same content without creating searchable traces linking that content to your identity.
+- **Practical effect:** You can create many random-looking links that reveal the same content without creating searchable traces.
 
