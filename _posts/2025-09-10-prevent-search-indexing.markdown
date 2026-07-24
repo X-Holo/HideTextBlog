@@ -6,6 +6,7 @@ categories: seo privacy
 ---
 
 ## Preventing Search Engine Indexing
+
 URLs can carry sensitive data. HideText uses two simple, practical measures so those links don't become searchable.
 
 1) HTTP-level noindex
@@ -18,8 +19,9 @@ URLs can carry sensitive data. HideText uses two simple, practical measures so t
 - Each ciphertext page includes a `<link rel="canonical" href="https://hide-text.com/">`.  
 - Crawlers are instructed to treat the encrypted URL as part of the main site, preventing separate indexing or ranking for each random link.
 
-Verification
+### Summary
 
-- We verify this behavior empirically — a page can be indexed while its HideText links remain unsearchable. See the test details: {% post_url 2025-09-10-verification-test %}.
+- **Random links are not indexed:** URLs containing ciphertext parameters (for example `?c=...`) are prevented from being indexed and should not appear in search results.
+- **The domain is indexed:** The root site (`https://hide-text.com/`) remains indexable and will be treated normally by search engines.
+- **Practical effect:** You can create many random-looking links that reveal the same content without creating searchable traces linking that content to your identity.
 
-For a simple explanation of how the data is transformed before these layers, see: {% post_url 2025-09-10-XOR-base64 %}.
