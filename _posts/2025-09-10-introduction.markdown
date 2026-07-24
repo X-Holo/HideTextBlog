@@ -31,13 +31,13 @@ Let's say you frequent Reddit Sub-A and often leave "Random Address A" as your c
 
 A nosy colleague searches for your email "my_special_name@example.com" on Google but finds nothing. This is because your actual email address isn't posted on Sub-A, and Google neither indexes "Random Address A" nor links it to your email.
 
-In other words, even if someone knows your real email address, they cannot trace it back to your random addresses, thereby effectively protecting your privacy.
+In other words, even if someone knows your real email address, they cannot trace it back to your "Random Address A", thereby effectively protecting your privacy.
 
 #### Scenario 2:
 
 Now, imagine an acquaintance from Sub-A wants to pry into your privacy. They know both your email and "Random Address A," so they search for "Random Address A" on Google. However, they cannot find any information about your activities outside of Sub-A.
 
-In reality, you are also active on Sub-B, where you use "Random Address B." Since there is no way to deduce "Random Address B" from "Random Address A," your acquaintance from Sub-A has no way of knowing about "Random Address B" and thus cannot discover your activity on Sub-B.
+In reality, you are also active on Sub-B, where you use "Random Address B". Since there is no way to deduce "Random Address B" from "Random Address A", your acquaintance from Sub-A has no way of knowing about "Random Address B" and thus cannot discover your activity on Sub-B.
 
 In other words, even if one random address is exposed, the others remain undiscovered, ensuring the continued security of your privacy.
 
