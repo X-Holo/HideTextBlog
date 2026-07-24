@@ -31,8 +31,8 @@ Base64 (or URL-safe Base64) converts those bytes into URL-safe characters.
 
 Example:
 
-- Raw: a+b/c=d
-- URL-safe Base64: YS1iL2MrZA
+- Raw: a+b/c=d //will break URL
+- URL-safe Base64: YS1iL2MrZA //URL-safe
 - Link: https://hide-text.com/?c=YS1iL2MrZA
 
 Decoding the Base64 and then XORing with the key restores the original text.
