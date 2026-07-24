@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Introduction of HideText"
+title:  "HideText Use Cases"
 date:   2026-07-20 23:50:00 +0800
 categories: jekyll update
 ---
